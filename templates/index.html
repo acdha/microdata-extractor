@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML5 Microdata Extractor</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: sans-serif;
+            }
+
+            header, footer {
+                text-align: center;
+            }
+
+            main {
+                display: block;
+            }
+
+            input[type="url"] {
+                font-family: monospace;
+            }
+
+            pre {
+                max-width: 95vw;
+                overflow: auto;
+            }
+
+            code {
+                max-width: 95vw;
+                overflow: auto;
+            }
+
+            footer img {
+                vertical-align: text-top;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>HTML5 Microdata Extractor</h1>
+
+            <form method="GET" action="/extract/">
+                <input name="url" value="{{ url }}" type="url" size="60" autocomplete="on" autofocus placeholder="Enter a URL which has some microdata">
+                <input type="submit">
+            </form>
+        </header>
+
+        <main>
+            {% if extracted %}
+                <p>
+                    Get the raw JSON:<br>
+                    <code class="prettyprint lang-bash">
+                        curl -H 'Accept: application/json' '{{ request_url }}'
+                    </code>
+                </p>
+                <pre class="prettyprint lang-js">{{ extracted }}</pre>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>
+                Created by <a href="http://chris.improbable.org">Chris Adams</a>.
+                <a href="https://github.com/acdha/microdata-extractor">Source on Github</a>
+
+                <a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+                    <img src="http://i.creativecommons.org/p/mark/1.0/80x15.png" alt="Public Domain Mark">
+                </a>
+            </p>
+        </footer>
+
+        <script async src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    </body>
+</html>
