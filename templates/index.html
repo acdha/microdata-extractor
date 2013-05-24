@@ -84,7 +84,7 @@
                                          |url          = {{ url }}
                                          {% if item.properties.name %}|title        = {{ item.properties.name|join(' ') }}{% endif %}
                                          |website      = {{ wiki_site_name }}
-                                         {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join(' ') }}{% endif %}
+                                         {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join('-') }}{% endif %}
                                          {% if item.properties.series %}|series       = {{ item.properties.series|join(' ') }}{% endif %}
                                          {# |trans_title         =  #}
                                          {# |type         =  #}
