@@ -52,11 +52,15 @@
     </head>
     <body>
         <header>
-            <h1>HTML5 Microdata Extractor</h1>
+            <h1><a href="/">HTML5 Microdata Extractor</a></h1>
 
             <form method="GET" action="/extract/">
                 <input name="url" value="{{ url }}" type="url" size="60" autocomplete="on" autofocus placeholder="Enter a URL which has some microdata">
-                <input type="submit">
+                <input type="submit"><br/>
+                <label>
+                    <input type="checkbox" name="wikipedia"{% if show_wikipedia %} checked{% endif %}>
+                    Display Wikipedia citations
+                </label>
             </form>
         </header>
 
@@ -70,7 +74,7 @@
                 </p>
 
                 {% if items %}
-                    <details id="wikipedia">
+                    <details id="wikipedia"{% if show_wikipedia %} open{% endif %}>
                         <summary>Wikipedia Citations</summary>
                         <ol>
                             {% for item in items %}
@@ -117,6 +121,12 @@
                 </a>
             </p>
         </footer>
+
+        <script>
+            if (document.location.hash.indexOf("wikipedia") > -1) {
+                document.getElementById("wikipedia").open = true;
+            }
+        </script>
 
         <script async src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     </body>

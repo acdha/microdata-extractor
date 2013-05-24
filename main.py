@@ -44,7 +44,8 @@ class ExtractionHandler(webapp2.RequestHandler):
             "request_url": self.request.url,
             "extracted": json.dumps(extracted, indent=4),
             "items": items,
-            "access_date": datetime.date.today()
+            "access_date": datetime.date.today(),
+            "show_wikipedia": self.request.get('wikipedia', 'off') == 'on'
         }
 
         best_match = self.request.accept.best_match(['application/json', 'text/html'])
