@@ -24,18 +24,29 @@
             }
 
             pre {
+                max-width: 60em;
                 max-width: 95vw;
+                max-height: 10em;
                 max-height: 50vh;
                 overflow: auto;
             }
 
             code {
+                max-width: 60em;
                 max-width: 95vw;
                 overflow: auto;
             }
 
             footer img {
                 vertical-align: text-top;
+            }
+
+            #wikipedia ol {
+                padding: 0 2em;
+            }
+
+            #wikipedia aside {
+                font-size: smaller;
             }
         </style>
     </head>
@@ -57,27 +68,36 @@
                         curl -H 'Accept: application/json' '{{ request_url }}'
                     </code>
                 </p>
+
+                {% if items %}
+                    <details id="wikipedia">
+                        <summary>Wikipedia Citations</summary>
+                        <ol>
+                            {% for item in items %}
+                                <li>
+                                    <code>
+                                        &lt;ref name=&quot;WDL&quot;&gt;{{ '{{' }}cite web
+                                         |url          = {{ url }}
+                                         {% if item.properties.name %}|title        = {{ item.properties.name|join(' ') }}{% endif %}
+                                         |website      = [[World Digital Library]]
+                                         {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join(' ') }}{% endif %}
+                                         {% if item.properties.series %}|series       = {{ item.properties.series|join(' ') }}{% endif %}
+                                         {# |trans_title         =  #}
+                                         {# |type         =  #}
+                                         |accessdate   = {{ access_date }}
+                                        }}&lt;/ref&gt;
+                                    </code>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                        <aside>
+                            (These attempt to follow <a href="http://en.wikipedia.org/wiki/Template:Cite_web">{{ '{{ cite_web }}' }}</a>;
+                            please <a href="mailto:chris@improbable.org">contact me</a> if you encounter a problem)
+                        </aside>
+                    </details>
+                {% endif %}
+
                 <pre class="prettyprint lang-js">{{ extracted }}</pre>
-                <h2>Wikipedia <code>cite_web</code></h2>
-                <ul>
-                    {% for item in items %}
-                        <li>
-                            <code>
-                                {{ '{{' }}cite web
-                                 |url          = {{ url }}
-                                 {% if item.properties.name %}|title        = {{ item.properties.name|join(' ') }}{% endif %}
-                                 |website      = [[World Digital Library]]
-                                 {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join(' ') }}{% endif %}
-                                 {% if item.properties.series %}|series       = {{ item.properties.series|join(' ') }}{% endif %}
-                                 {% if item.properties.publisher %}|publisher    = {{ item.properties.publisher|join(' ') }}{% endif %}
-                                 {# |trans_title         =  #}
-                                 {# |type         =  #}
-                                 |accessdate   = {{ access_date }}
-                                }}
-                            </code>
-                        </li>
-                    {% endfor %}
-                </ul>
             {% else %}
                 <h2>Try some examples</h2>
                 <ul>
