@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+import datetime
 import json
 import os
 import urllib
@@ -42,6 +43,8 @@ class ExtractionHandler(webapp2.RequestHandler):
             "url": url,
             "request_url": self.request.url,
             "extracted": json.dumps(extracted, indent=4),
+            "items": items,
+            "access_date": datetime.date.today()
         }
 
         best_match = self.request.accept.best_match(['application/json', 'text/html'])

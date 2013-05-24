@@ -25,6 +25,7 @@
 
             pre {
                 max-width: 95vw;
+                max-height: 50vh;
                 overflow: auto;
             }
 
@@ -57,6 +58,26 @@
                     </code>
                 </p>
                 <pre class="prettyprint lang-js">{{ extracted }}</pre>
+                <h2>Wikipedia <code>cite_web</code></h2>
+                <ul>
+                    {% for item in items %}
+                        <li>
+                            <code>
+                                {{ '{{' }}cite web
+                                 |url          = {{ url }}
+                                 {% if item.properties.name %}|title        = {{ item.properties.name|join(' ') }}{% endif %}
+                                 |website      = [[World Digital Library]]
+                                 {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join(' ') }}{% endif %}
+                                 {% if item.properties.series %}|series       = {{ item.properties.series|join(' ') }}{% endif %}
+                                 {% if item.properties.publisher %}|publisher    = {{ item.properties.publisher|join(' ') }}{% endif %}
+                                 {# |trans_title         =  #}
+                                 {# |type         =  #}
+                                 |accessdate   = {{ access_date }}
+                                }}
+                            </code>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <h2>Try some examples</h2>
                 <ul>
