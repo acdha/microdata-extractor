@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+from urlparse import urlsplit
 import datetime
 import json
 import os
@@ -47,6 +48,17 @@ class ExtractionHandler(webapp2.RequestHandler):
             "access_date": datetime.date.today(),
             "show_wikipedia": self.request.get('wikipedia', 'off') == 'on'
         }
+
+        url_parts = urlsplit(url)
+        site_name = url_parts.netloc
+        if site_name.endswith('wdl.org'):
+            site_name = 'WDL'
+            wiki_site_name = '[[World Digital Library]]'
+        else:
+            wiki_site_name = site_name
+
+        context['site_name'] = site_name
+        context['wiki_site_name'] = wiki_site_name
 
         best_match = self.request.accept.best_match(['application/json', 'text/html'])
         if best_match == 'application/json':

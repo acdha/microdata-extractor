@@ -80,10 +80,10 @@
                             {% for item in items %}
                                 <li>
                                     <code>
-                                        &lt;ref name=&quot;WDL&quot;&gt;{{ '{{' }}cite web
+                                        &lt;ref name=&quot;{{ site_name }}&quot;&gt;{{ '{{' }}cite web
                                          |url          = {{ url }}
                                          {% if item.properties.name %}|title        = {{ item.properties.name|join(' ') }}{% endif %}
-                                         |website      = [[World Digital Library]]
+                                         |website      = {{ wiki_site_name }}
                                          {% if item.properties.dateCreated %}|date         = {{ item.properties.dateCreated|join(' ') }}{% endif %}
                                          {% if item.properties.series %}|series       = {{ item.properties.series|join(' ') }}{% endif %}
                                          {# |trans_title         =  #}
