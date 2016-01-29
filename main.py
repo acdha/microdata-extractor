@@ -1,52 +1,53 @@
 # encoding: utf-8
 
-from urlparse import urlsplit
 import datetime
 import json
 import os
-import urllib
-import sys
-
-sys.path.insert(0, "html5lib")
-sys.path.insert(0, "microdata")
+from urlparse import urlsplit
 
 import jinja2
-import webapp2
+import requests
+from flask import Flask, make_response, redirect, request
 
 import microdata
-
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
                                        extensions=['jinja2.ext.autoescape'])
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render())
+
+app = Flask(__name__)
 
 
-class ExtractionHandler(webapp2.RequestHandler):
-    def get(self):
-        url = self.request.get('url')
+@app.route('/')
+def index():
+    template = JINJA_ENVIRONMENT.get_template('index.html')
+    return template.render()
+
+
+@app.route('/extract/')
+def extract_microdata():
+        url = request.args.get('url')
         if not url:
-            self.redirect('/')
+            return redirect('/')
 
         extracted = {}
         extracted['items'] = items = []
 
-        url_contents = urllib.urlopen(url).read()
+        resp = requests.get(url)
+        resp.raise_for_status()
+        url_contents = resp.content
 
         for item in microdata.get_items(url_contents):
             items.append(item.json_dict())
 
         context = {
             "url": url,
-            "request_url": self.request.url,
+            "request_url": url,
             "extracted": json.dumps(extracted, indent=4),
             "items": items,
             "access_date": datetime.date.today(),
-            "show_wikipedia": self.request.get('wikipedia', 'off') == 'on'
+            "show_wikipedia": request.args.get('wikipedia', 'off') == 'on'
         }
 
         url_parts = urlsplit(url)
@@ -60,16 +61,13 @@ class ExtractionHandler(webapp2.RequestHandler):
         context['site_name'] = site_name
         context['wiki_site_name'] = wiki_site_name
 
-        best_match = self.request.accept.best_match(['application/json', 'text/html'])
-        if best_match == 'application/json':
-            self.response.content_type = 'application/json'
-            self.response.write(context['extracted'])
-        else:
+        if 'text/html' in request.headers.get('Accept', ''):
             template = JINJA_ENVIRONMENT.get_template('index.html')
-            self.response.write(template.render(context))
+            return template.render(context)
+        else:
+            return context['extracted'], 200, {'Content-Type': 'application/json'}
 
 
-app = webapp2.WSGIApplication([
-    (r'/extract/', ExtractionHandler),
-    (r'/', MainHandler),
-], debug=True)
+port = os.getenv('PORT', '5000')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=int(port))
