@@ -69,4 +69,5 @@ def extract_microdata():
 
 
 if __name__ == "__main__":
-    app.run()
+    port = os.getenv("PORT", "5000")
+    app.run(port=int(port))
