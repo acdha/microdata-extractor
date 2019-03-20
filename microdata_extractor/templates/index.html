@@ -9,6 +9,11 @@
 
             body {
                 font-family: sans-serif;
+                height: 100vh;
+                width: 100vw;
+
+                display: flex;
+                flex-direction: column;
             }
 
             header, footer {
@@ -17,24 +22,17 @@
 
             main {
                 display: block;
+                flex-grow: 1;
+                overflow: auto;
             }
 
             input[type="url"] {
                 font-family: monospace;
             }
 
-            pre {
-                max-width: 60em;
-                max-width: 95vw;
-                max-height: 10em;
-                max-height: 50vh;
-                overflow: auto;
-            }
-
             code {
-                max-width: 60em;
                 max-width: 95vw;
-                overflow: auto;
+                overflow-x: auto;
             }
 
             footer img {
