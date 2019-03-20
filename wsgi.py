@@ -1,14 +1,14 @@
-# encoding: utf-8
+# /usr/bin/env python3
 
 import datetime
 import json
 import os
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 
 import jinja2
 import microdata
 import requests
-from flask import Flask, make_response, redirect, request
+from flask import Flask, redirect, request
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
 JINJA_ENVIRONMENT = jinja2.Environment(
