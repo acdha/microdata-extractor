@@ -6,10 +6,9 @@ import os
 from urlparse import urlsplit
 
 import jinja2
+import microdata
 import requests
 from flask import Flask, make_response, redirect, request
-
-import microdata
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
 JINJA_ENVIRONMENT = jinja2.Environment(
