@@ -16,6 +16,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 )
 
 
+def clean_strings_recursively(obj):
+    if isinstance(obj, list):
+        return [clean_strings_recursively(i) for i in obj]
+    elif isinstance(obj, dict):
+        return {k: clean_strings_recursively(v) for k, v in obj.items()}
+    elif isinstance(obj, str):
+        return obj.strip()
+    else:
+        return obj
+
+
 application = Flask(__name__)
 
 
@@ -39,7 +50,7 @@ def extract_microdata():
     url_contents = resp.content
 
     for item in microdata.get_items(url_contents):
-        items.append(item.json_dict())
+        items.append(clean_strings_recursively(item.json_dict()))
 
     context = {
         "url": url,
