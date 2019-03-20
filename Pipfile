@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+isort = "*"
+black = "==19.3b0"
+rope = "*"
+
+[packages]
+microdata = "*"
+html5lib = "*"
+requests = "*"
+gunicorn = "*"
+Jinja2 = "*"
+Flask = "*"
+
+[requires]
+python_version = "3.7"
