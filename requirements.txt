@@ -1,6 +1,0 @@
-jinja2
-flask
-microdata
-html5lib
-requests
-gunicorn
