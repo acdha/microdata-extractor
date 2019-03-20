@@ -5,14 +5,14 @@ import json
 import os
 from urllib.parse import urlsplit
 
-import jinja2
 import microdata
 import requests
 from flask import Flask, redirect, request
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(TEMPLATE_DIR), extensions=["jinja2.ext.autoescape"]
+JINJA_ENVIRONMENT = Environment(
+    loader=FileSystemLoader(TEMPLATE_DIR), autoescape=select_autoescape(["html", "xml"])
 )
 
 
