@@ -74,7 +74,7 @@
                 <p>
                     Get the raw JSON:<br>
                     <code class="prettyprint lang-bash">
-                        curl -H 'Accept: application/json' 'https://microdata-extractor.apps.cloud.gov/extract/?url={{ request_url|urlencode }}'
+                        curl -H 'Accept: application/json' '{{ request.url }}'
                     </code>
                 </p>
 

@@ -71,6 +71,7 @@ def extract_microdata():
 
     context["site_name"] = site_name
     context["wiki_site_name"] = wiki_site_name
+    context["request"] = request
 
     if "text/html" in request.headers.get("Accept", ""):
         template = JINJA_ENVIRONMENT.get_template("index.html")
