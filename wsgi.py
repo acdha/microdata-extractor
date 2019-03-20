@@ -16,16 +16,16 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 )
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.route("/")
+@application.route("/")
 def index():
     template = JINJA_ENVIRONMENT.get_template("index.html")
     return template.render()
 
 
-@app.route("/extract/")
+@application.route("/extract/")
 def extract_microdata():
     url = request.args.get("url")
     if not url:
@@ -70,4 +70,4 @@ def extract_microdata():
 
 if __name__ == "__main__":
     port = os.getenv("PORT", "5000")
-    app.run(port=int(port))
+    application.run(port=int(port))
