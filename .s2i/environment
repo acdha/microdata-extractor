@@ -1,1 +1,2 @@
 APP_CONFIG=config.py
+APP_MODULE=microdata_extractor.wsgi
