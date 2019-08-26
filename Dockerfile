@@ -2,13 +2,13 @@ FROM python:3.7
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
-RUN apt-get update -qy && apt-get dist-upgrade -qy -o Dpkg::Options::='--force-confnew' && apt-get -qy autoremove && apt-get -qy autoclean
+RUN apt-get update -qqy && apt-get dist-upgrade -qqy -o Dpkg::Options::='--force-confnew' && apt-get -qqy autoremove && apt-get -qqy autoclean
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH /app
 
-RUN pip install --upgrade pip
-RUN pip install --upgrade pipenv
+RUN pip install --quiet --upgrade pip
+RUN pip install --quiet --upgrade pipenv
 
 WORKDIR /app
 COPY . /app
