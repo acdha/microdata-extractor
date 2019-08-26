@@ -10,6 +10,11 @@ black = "==19.3b0"
 rope = "*"
 bandit = "*"
 pylint = "*"
+flake8-eradicate = "*"
+flake8-assertive = "*"
+flake8-comprehensions = "*"
+flake8-builtins = "*"
+flake8-logging-format = "*"
 
 [packages]
 microdata = "*"
@@ -20,4 +25,4 @@ Jinja2 = "*"
 Flask = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
