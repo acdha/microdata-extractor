@@ -6,9 +6,15 @@ on:
             - master
 
 jobs:
+    pre-commit:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Run pre-commit
+              run: docker run --volume "$PWD":/code docker.pkg.github.com/acdha/pre-commit-docker/pre-commit-docker:master
+
     build:
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v1
             - name: Build the Docker image
