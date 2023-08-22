@@ -1,15 +1,15 @@
 exclude: ".*/vendor/.*"
 repos:
-    - repo: https://github.com/pre-commit/mirrors-isort
-      rev: v5.6.4
+    - repo: https://github.com/PyCQA/isort
+      rev: 5.12.0
       hooks:
           - id: isort
-    - repo: https://github.com/ambv/black
-      rev: 20.8b1
+    - repo: https://github.com/psf/black
+      rev: 23.7.0
       hooks:
           - id: black
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.3.0
+      rev: v4.4.0
       hooks:
           - id: check-added-large-files
             args: ["--maxkb=128"]
@@ -33,13 +33,13 @@ repos:
           - id: pretty-format-json
             args: ["--autofix", "--no-sort-keys", "--indent=4"]
           - id: trailing-whitespace
-    - repo: https://github.com/prettier/prettier
-      rev: 2.1.2
+    - repo: https://github.com/pre-commit/mirrors-prettier
+      rev: v3.0.2
       hooks:
           - id: prettier
             files: \.(css|less|scss|ts|tsx|graphql|gql|json|js|jsx|md)$
-    - repo: https://gitlab.com/pycqa/flake8
-      rev: 3.8.4
+    - repo: https://github.com/PyCQA/flake8
+      rev: 6.1.0
       hooks:
           - id: flake8
             additional_dependencies:
